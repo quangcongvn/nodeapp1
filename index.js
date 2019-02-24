@@ -13,3 +13,6 @@ app.use(express.static('public'))
 // security
 var helmet = require('helmet')
 app.use(helmet())
+// performance
+var compression = require('compression')
+app.use(compression())
