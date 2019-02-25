@@ -1,3 +1,9 @@
 moved new vps
 update some
 update on windows
+many step in my development process
+    write code in windows
+        sub: sync via Dropbox
+        test local on windows
+    commit to Github (main store source)
+    sync to linux for test or production
