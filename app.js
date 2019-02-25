@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 /// Cong add
+// proxy site to port
 const port = 4001
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
@@ -26,7 +27,7 @@ app.use(compression())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jes');
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
