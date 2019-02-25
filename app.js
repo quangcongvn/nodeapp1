@@ -9,9 +9,24 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+/// Cong add
+const port = 4001
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
+// security
+var helmet = require('helmet')
+app.use(helmet())
+// performance
+var compression = require('compression')
+app.use(compression())
+// END
+
+
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'jes');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -39,3 +54,9 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
+/// MVC
+var notes = require('./routes/notes');
+
+

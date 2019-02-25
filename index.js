@@ -17,4 +17,5 @@ app.use(helmet())
 var compression = require('compression')
 app.use(compression())
 
-// hehe
+/// MVC
+var notes = require('./routes/notes');
