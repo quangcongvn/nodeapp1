@@ -59,5 +59,5 @@ module.exports = app;
 
 /// MVC
 var notes = require('./routes/notes');
-
+app.use('/noteadd', notes.add);
 
