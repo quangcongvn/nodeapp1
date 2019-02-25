@@ -7,3 +7,4 @@ many step in my development process
         test local on windows
     commit to Github (main store source)
     sync to linux for test or production
+test git on vscode
