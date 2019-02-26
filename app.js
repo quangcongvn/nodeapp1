@@ -8,8 +8,9 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+/// [generated above] PUT FIRST FILE /// =========================================================
 
-/// Cong add
+/// Cong add ==============================================================================
 // proxy site to port
 const port = 4001
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
@@ -20,7 +21,6 @@ app.use(helmet())
 // performance
 var compression = require('compression')
 app.use(compression())
-// END
 
 
 
@@ -38,26 +38,36 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+/// MVC
+var notes = require('./routes/notes');
+app.use('/noteadd', notes.add); 
+app.post('/notesave', notes.save);
+app.use('/noteview', notes.view);
+app.use('/noteedit', notes.edit);
+app.use('/notedestroy', notes.destroy);
+app.post('/notedodestroy', notes.dodestroy);
+
+/// END Cong add ===========================================================================
+
+/// [generated below] PUT LAST FILE /// =========================================================
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// /// error handler
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render('error');
+// });
 
-module.exports = app;
+module.exports = app; 
 
 
-/// MVC
-var notes = require('./routes/notes');
-app.use('/noteadd', notes.add);
-
+/// WARNING:  add new section above
