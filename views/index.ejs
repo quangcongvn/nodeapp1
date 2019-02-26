@@ -1,13 +1,11 @@
 <% include top %>
 <%
-    var keys = notes.keys();
-    if(keys) {
-        keys.forEach(function(key) {
-            var note = notes.read(key);
-            %><p><%= key %>:
-                <a href="/noteview?key=<%= key %>"><%= note.title %></a>
-            </p><%
-        });
-    }
+    if(notes) {
+    for(var i in notes) {
+        %><p><%= notes[i].key %>:
+        <a href="/noteview?key=<%= notes[i].key %>"><%= notes[i].title %></a>
+    </p><%
+ }
+ }
 %>
 <% include bottom %>

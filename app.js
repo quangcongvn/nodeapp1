@@ -4,9 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
 var app = express();
 /// [generated above] PUT FIRST FILE /// =========================================================
 
@@ -22,6 +19,17 @@ app.use(helmet())
 var compression = require('compression')
 app.use(compression())
 
+// REQUIRE ======================================================
+var routes = require('./routes/index');
+var users = require('./routes/users');
+var notes = require('./routes/notes');
+var models = require('./models-mongoose/notes');
+models.connect("mongodb://localhost/notes", function(err) {
+    if(err)
+    throw err;
+});
+notes.configure(models);
+routes.configure(models);
 
 
 
@@ -29,18 +37,16 @@ app.use(compression())
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+/// USE ======================================================
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-/// MVC
-var notes = require('./routes/notes');
-app.use('/noteadd', notes.add); 
+app.use('/', routes.index);
+app.use('/users', users);
+app.get('/noteadd', notes.add);
 app.post('/notesave', notes.save);
 app.use('/noteview', notes.view);
 app.use('/noteedit', notes.edit);
