@@ -5,7 +5,7 @@ exports.configure = function (params) {
     notes = params;
 }
 //
-exports.add = function (req, res, next) {
+exports.addView = function (req, res) {
     res.render('noteedit', {
         title: "Add a note",
         docreate: true,
@@ -13,58 +13,36 @@ exports.add = function (req, res, next) {
         note: undefined
     });
 }
+exports.add = async function (req, res) {
+    await notes.add(req.body);
+    res.redirect('/noteview?key=' + req.body.notekey);
+}
+
+
+exports.view = async function (req, res, next) {
+    var obj = await notes.find(req.query.key);
+    res.render('noteview', {
+        title: obj ? obj.title : "",
+        notekey: obj.notekey,
+        note: obj
+    });
+}
 //
-exports.save = function (req, res, next) {
-    if (req.body.docreate === 'create') {
-        notes.create(req.body.notekey,
-            req.body.title,
-            req.body.body);
-    } else {
-        notes.update(req.body.notekey,
-            req.body.title,
-            req.body.body);
-    }
+exports.updateView = async function (req, res, next) {
+    var obj = await notes.find(req.query.key);
+    res.render('notes/update', {
+        title: obj ? ("Edit " + obj.title) : "Add a Note",
+        docreate: obj ? false : true,
+        notekey: obj.notekey,
+        note: obj
+    });
+}
+//
+exports.update = async function (req, res) {
+    await   notes.update(req.body);
     res.redirect('/noteview?key=' + req.body.notekey);
 }
 //
-exports.view = function (req, res, next) {
-    var note = undefined;
-    if (req.query.key) {
-        note = notes.read(req.query.key);
-    }
-    res.render('noteview', {
-        title: note ? note.title : "",
-        notekey: req.query.key,
-        note: note
-    });
-}
-//
-exports.edit = function (req, res, next) {
-    var note = undefined;
-    if (req.query.key) {
-        note = notes.read(req.query.key);
-    }
-    res.render('noteedit', {
-        title: note ? ("Edit " + note.title) : "Add a Note",
-        docreate: note ? false : true,
-        notekey: req.query.key,
-        note: note
-    });
-}
-//
-exports.edit1 = async function (req, res, next) {
-    // var note = undefined;
-    if (req.query.key) {
-      var  note = await notes.read1(req.query.key);
-        console.log(note);
-        res.render('noteedit', {
-            title: note ? ("Edit " + note.title) : "Add a Note",
-            docreate: note ? false : true,
-            notekey: req.query.key,
-            note: note
-        });
-    }
-}
 //
 exports.destroy = function (req, res, next) {
     var result_note = undefined;

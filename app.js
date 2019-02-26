@@ -20,16 +20,17 @@ var compression = require('compression')
 app.use(compression())
 
 // REQUIRE ======================================================
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var notes = require('./routes/notes');
-var models = require('./models-mongoose/notes');
-models.connect("mongodb://localhost/notes", function(err) {
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var notesRouter = require('./routes/notes');
+var models = require('./models/notesModel');
+var dbName = "testDB";
+models.connect(`mongodb://localhost/${dbName}`, function(err) {
     if(err)
     throw err;
 });
-notes.configure(models);
-routes.configure(models);
+notesRouter.configure(models);
+indexRouter.configure(models);
 
 
 
@@ -44,14 +45,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes.index);
-app.use('/users', users);
-app.get('/noteadd', notes.add);
-app.post('/notesave', notes.save);
-app.use('/noteview', notes.view);
-app.use('/noteedit', notes.edit1); 
-app.use('/notedestroy', notes.destroy);
-app.post('/notedodestroy', notes.dodestroy);
+app.use('/', indexRouter.index);
+app.use('/users', usersRouter);
+app.get('/noteadd', notesRouter.addView);
+app.post('/notesave', notesRouter.add);
+app.use('/noteedit', notesRouter.updateView); 
+app.post('/update', notesRouter.updateView); 
+app.use('/notedestroy', notesRouter.destroy);
+app.post('/notedodestroy', notesRouter.dodestroy);
+app.use('/noteview', notesRouter.view);
 
 /// END Cong add ===========================================================================
 
