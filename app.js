@@ -53,7 +53,7 @@ app.use('/noteedit', notesRouter.updateView);
 app.post('/update', notesRouter.updateView); 
 app.use('/notedestroy', notesRouter.destroy);
 app.post('/notedodestroy', notesRouter.dodestroy);
-app.use('/noteview', notesRouter.view);
+app.use('/noteview', notesRouter.view); 
 
 /// END Cong add ===========================================================================
 
