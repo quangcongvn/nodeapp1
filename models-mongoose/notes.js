@@ -54,7 +54,7 @@ exports.update = function (key, title, body, callback) {
 }
 
 exports.read = function (key, callback) {
-    console.log(callback); 
+    console.log(callback);
     Note.findOne({ notekey: key }, function (err, result) {
         if (err) {
             if (typeof callback === "function") { callback(err); }
@@ -66,6 +66,9 @@ exports.read = function (key, callback) {
         }
 
     });
+}
+exports.read1 =  function (key) {
+    return  Note.findOne({ notekey: key });
 }
 
 exports.destroy = function (key, callback) {

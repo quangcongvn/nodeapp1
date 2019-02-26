@@ -52,6 +52,20 @@ exports.edit = function (req, res, next) {
     });
 }
 //
+exports.edit1 = async function (req, res, next) {
+    // var note = undefined;
+    if (req.query.key) {
+      var  note = await notes.read1(req.query.key);
+        console.log(note);
+        res.render('noteedit', {
+            title: note ? ("Edit " + note.title) : "Add a Note",
+            docreate: note ? false : true,
+            notekey: req.query.key,
+            note: note
+        });
+    }
+}
+//
 exports.destroy = function (req, res, next) {
     var result_note = undefined;
     if (req.query.key) {

@@ -49,7 +49,7 @@ app.use('/users', users);
 app.get('/noteadd', notes.add);
 app.post('/notesave', notes.save);
 app.use('/noteview', notes.view);
-app.use('/noteedit', notes.edit);
+app.use('/noteedit', notes.edit1); 
 app.use('/notedestroy', notes.destroy);
 app.post('/notedodestroy', notes.dodestroy);
 
