@@ -47,13 +47,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter.index);
 app.use('/users', usersRouter);
-app.get('/noteadd', notesRouter.addView);
-app.post('/notesave', notesRouter.add);
-app.use('/noteedit', notesRouter.updateView); 
-app.post('/update', notesRouter.updateView); 
-app.use('/notedestroy', notesRouter.destroy);
-app.post('/notedodestroy', notesRouter.dodestroy);
-app.use('/noteview', notesRouter.view); 
+app.use('/list', notesRouter.list); 
+app.use('/item', notesRouter.item); 
+app.get('/addView', notesRouter.addView);
+app.post('/addWork', notesRouter.addWork);
+app.use('/updateView', notesRouter.updateView); 
+app.post('/updatework', notesRouter.updateWork); 
+app.use('/deleteView', notesRouter.deleteView);
+app.post('/deleteWork', notesRouter.deleteWork);
 
 /// END Cong add ===========================================================================
 

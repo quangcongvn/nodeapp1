@@ -22,7 +22,9 @@ exports.disconnect = function (callback) {
 //    foo: "This", 
 //    bar: "works!"
 // };
-
+exports.find = function (key) {
+    return Obj.findOne({ notekey: key });
+}
 exports.add = function (obj) {
     var objNew = new Obj();
     objNew.notekey = obj.notekey;
@@ -31,46 +33,15 @@ exports.add = function (obj) {
     objNew.save();
 }
 
-exports.update = function (key, title, body, callback) {
-    var objFind = exports.find(key);
-    objFind.notekey = obj.notekey;
-    objFind.title = obj.title;
-    objFind.body = obj.body;
-    objFind.save();
+//# https://stackoverflow.com/questions/44751493/findoneandupdate-method-returning-before-resolving
+
+exports.update = function (obj) {
+    Obj.findOneAndUpdate({ notekey: obj.notekey }, obj).exec()
+}
+exports.delete = function (id) {
+    Obj.findOneAndDelete({ notekey: id }).exec()
 }
 
-
-exports.find =  function (key) {
-    return  Obj.findOne({ notekey: key });
-}
-
-exports.destroy = function (key, callback) {
-    exports.read(key, function (err, doc) {
-        if (err) { if (typeof callback === "function") { callback(err); } }
-        else {
-            doc.remove();
-            { if (typeof callback === "function") { callback(); } }
-        }
-    });
-}
-
-exports.titles = function (callback) {
-    Obj.find().exec(function (err, docs) {
-        if (err) { if (typeof callback === "function") { callback(err); } }
-        else {
-            if (docs) {
-                var noteList = [];
-                docs.forEach(function (note) {
-                    noteList.push({
-                        key: note.notekey,
-                        title: note.title
-                    });
-                });
-                if (typeof callback === "function") { callback(null, noteList); }
-
-            } else {
-                { if (typeof callback === "function") { callback(); } }
-            }
-        }
-    });
+exports.list = function () {
+  return Obj.find().exec();
 }
