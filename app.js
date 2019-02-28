@@ -30,9 +30,9 @@ var sampleSchema = require('./models/Schemas/sampleSchema')
 var sampleRouter = require('./routes/sample');
 sampleRouter.initModel(CRUD, sampleSchema);
 
-// var testSchema = require('./models/Schemas/testSchema')
-// var testRouter = require('./routes/test');
-// testRouter.initModel(CRUD, testSchema);
+var testSchema = require('./models/Schemas/testSchema')
+var testRouter = require('./routes/test');
+testRouter.initModel(CRUD, testSchema);
 
 
 

@@ -2,8 +2,10 @@
 var sampleModel
 // REQUIRED
 exports.initModel = function (CRUD, schema) {
-    CRUD.initSchema(schema);
-    sampleModel = CRUD;
+    var crud = new CRUD;
+    crud.initSchema(schema);
+    sampleModel = crud;
+    crud.test=1;
 }
 // 
 exports.list = async function (req, res) {
@@ -12,6 +14,9 @@ exports.list = async function (req, res) {
         title: "title",
         items: listItems
     })
+    
+
+    console.log( sampleModel.test);
 }
 
 //
