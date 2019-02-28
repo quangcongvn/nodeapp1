@@ -1,0 +1,9 @@
+<% include ../top %>
+<form method="POST" action='deleteWork'>
+    <%= JSON.stringify(item) %>
+
+    <input type='text' name='_id' value=<%= item._id %>  readonly />
+    <input type="submit" value="DELETE" />
+    <a href="/list">Cancel</a>
+</form>
+<% include ../bottom %>

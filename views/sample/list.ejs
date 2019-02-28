@@ -1,0 +1,19 @@
+<% include ../top %>
+<table border="1">
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>data</th>
+    </tr>
+    <%for(var index in items) { %>
+    <tr>
+        <td><%= items[index]._id %></td>
+        <td><%= items[index].name %></td>
+        <td><%= items[index].data %></td>
+        <td><a href="/updateView?_id=<%= items[index]._id %>">edit</a></a></td>
+        <td><a href="/deleteView?_id=<%= items[index]._id %>">delete</a></a></td>
+    </tr>
+    <%}%>
+</table>
+
+<% include ../bottom %>

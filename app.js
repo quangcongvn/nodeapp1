@@ -22,14 +22,14 @@ app.use(compression())
 // REQUIRE ======================================================
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var notesRouter = require('./routes/notes');
-var models = require('./models/notesModel');
+var sampleRouter = require('./routes/sample');
+var models = require('./models/sampleModel');
 var dbName = "testDB";
 models.connect(`mongodb://localhost/${dbName}`, function(err) {
     if(err)
     throw err;
 });
-notesRouter.configure(models);
+sampleRouter.configure(models);
 indexRouter.configure(models);
 
 
@@ -47,14 +47,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter.index);
 app.use('/users', usersRouter);
-app.use('/list', notesRouter.list); 
-app.use('/item', notesRouter.item); 
-app.get('/addView', notesRouter.addView);
-app.post('/addWork', notesRouter.addWork);
-app.use('/updateView', notesRouter.updateView); 
-app.post('/updatework', notesRouter.updateWork); 
-app.use('/deleteView', notesRouter.deleteView);
-app.post('/deleteWork', notesRouter.deleteWork);
+app.use('/list', sampleRouter.list); 
+app.get('/addView', sampleRouter.addView);
+app.post('/addWork', sampleRouter.addWork);
+app.use('/updateView', sampleRouter.updateView); 
+app.post('/updatework', sampleRouter.updateWork); 
+app.use('/deleteView', sampleRouter.deleteView);
+app.post('/deleteWork', sampleRouter.deleteWork);
 
 /// END Cong add ===========================================================================
 

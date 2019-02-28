@@ -1,0 +1,8 @@
+<% include ../top %>
+<form method='POST' action='/updateWork'>
+    <p>Id: <input type='text' name='_id' value='<%= item._id %>' readonly></p>
+    <p>Data: <input type='text' name='name' value='<%= item.name %>'></p>
+    <p>Name: <input type='text' name='data' value='<%= item.data %>'></p>
+    <input type='submit' value='Submit' />
+</form>
+<% include ../bottom %>
