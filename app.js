@@ -20,22 +20,27 @@ var compression = require('compression')
 app.use(compression())
 
 // REQUIRE ======================================================
+var db = require('./configs/database') // connect db here
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+// 
+var CRUD = require('./models/CRUD')
+
+var sampleSchema = require('./models/Schemas/sampleSchema')
 var sampleRouter = require('./routes/sample');
-var models = require('./models/sampleModel');
-var dbName = "testDB";
-models.connect(`mongodb://localhost/${dbName}`, function(err) {
-    if(err)
-    throw err;
-});
-sampleRouter.configure(models);
-indexRouter.configure(models);
+sampleRouter.initModel(CRUD, sampleSchema);
+
+// var testSchema = require('./models/Schemas/testSchema')
+// var testRouter = require('./routes/test');
+// testRouter.initModel(CRUD, testSchema);
+
+
+
 
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views')); 
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 /// USE ======================================================
@@ -47,11 +52,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter.index);
 app.use('/users', usersRouter);
-app.use('/list', sampleRouter.list); 
+app.use('/list', sampleRouter.list);
 app.get('/addView', sampleRouter.addView);
 app.post('/addWork', sampleRouter.addWork);
-app.use('/updateView', sampleRouter.updateView); 
-app.post('/updatework', sampleRouter.updateWork); 
+app.use('/updateView', sampleRouter.updateView);
+app.post('/updatework', sampleRouter.updateWork);
 app.use('/deleteView', sampleRouter.deleteView);
 app.post('/deleteWork', sampleRouter.deleteWork);
 
@@ -60,7 +65,7 @@ app.post('/deleteWork', sampleRouter.deleteWork);
 /// [generated below] PUT LAST FILE /// =========================================================
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
@@ -75,7 +80,7 @@ app.use(function(req, res, next) {
 //   res.render('error');
 // });
 
-module.exports = app; 
+module.exports = app;
 
 
 /// WARNING:  add new section above
