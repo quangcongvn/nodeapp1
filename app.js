@@ -8,10 +8,6 @@ var app = express();
 /// [generated above] PUT FIRST FILE /// =========================================================
 
 /// Cong add ==============================================================================
-// proxy site to port
-const port = 4001
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
 // security
 var helmet = require('helmet')
 app.use(helmet())
