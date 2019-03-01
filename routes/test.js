@@ -1,20 +1,17 @@
-
-var sampleModel
-// REQUIRED
-exports.initModel = function (CRUD, schema) {
-    var crud = new CRUD();
-    crud.initSchema(schema);
-    sampleModel = crud;
-    crud.test=1;
+var CRUD
+var schema
+// REQUIRED, model = CRUD + schema
+exports.initModel = function (CRUD_, schema_) {
+    CRUD = CRUD_
+    schema = schema_
 }
 // 
 exports.list = async function (req, res) {
-    var listItems = await sampleModel.list();
+    var listItems = await CRUD.list(schema);
     res.render('sample/list', {
         title: "title",
         items: listItems
     })
-    console.log(sampleModel.test);
 }
 
 //
@@ -24,13 +21,13 @@ exports.addView = function (req, res) {
     });
 }
 exports.addWork = async function (req, res) {
-    await sampleModel.add(req.body);
+    await CRUD.add(schema, req.body);
     res.redirect('/list');
 }
 
 //
 exports.updateView = async function (req, res) {
-    var obj = await sampleModel.find(req.query._id);
+    var obj = await CRUD.find(schema, req.query._id);
     res.render('sample/update', {
         title: "update",
         item: obj
@@ -38,13 +35,13 @@ exports.updateView = async function (req, res) {
 }
 //
 exports.updateWork = async function (req, res) {
-    await sampleModel.update(req.body);
+    await CRUD.update(schema, req.body);
     res.redirect('/list');
 }
 //
 //
 exports.deleteView = async function (req, res) {
-    var obj = await sampleModel.find(req.query._id);
+    var obj = await CRUD.find(schema, req.query._id);
     // GUI 
     res.render('sample/delete', {
         title: obj ? obj.title : "",
@@ -53,6 +50,6 @@ exports.deleteView = async function (req, res) {
 }
 //
 exports.deleteWork = async function (req, res) {
-    await sampleModel.delete(req.body._id);
+    await CRUD.delete(schema, req.body._id);
     res.redirect('/list');
 }
