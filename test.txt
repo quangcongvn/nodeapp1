@@ -11,3 +11,4 @@ test git on vscode
 test work on one
 other work on one branch
 add .gitignore and test
+test install node_modules and commit
