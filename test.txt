@@ -8,4 +8,3 @@ many step in my development process
     commit to Github (main store source)
     sync to linux for test or production
 test git on vscode
-test git on branch
