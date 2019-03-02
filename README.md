@@ -5,10 +5,8 @@
 
 # Router work (test)
 Router instance
-    init(schema,CRUD) = model
+    init(CRUD,crud) = model
 # Best practice
 - https://github.com/i0natan/nodebestpractices
 - Split app.js and server (bin/wwww).
     - New use: **nodemon** OR **npm start**
-# One
- - this is test work
